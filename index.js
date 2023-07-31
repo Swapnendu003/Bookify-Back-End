@@ -1,4 +1,4 @@
-const express = require("express");
+/*const express = require("express");
 const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -27,4 +27,40 @@ mongoose
   })
   .catch((error)=>{
     console.log("error");
+  });*/
+
+const express = require("express");
+const app = express();
+const cors = require("cors");
+const mongoose = require("mongoose");
+
+app.use(express.json());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
+
+const bookRouter = require("./routes/bookRoutes");
+app.use("/books", bookRouter);
+
+app.all("/", (req, res) => {
+  console.log("Just got a request!");
+  res.send("Yo yo");
+});
+
+const mongooseUri = process.env.MONGO_URI; // Set this environment variable in Vercel
+
+mongoose
+  .connect(mongooseUri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    app.listen(process.env.PORT || 3000, () => {
+      console.log("Your Server is running");
+    });
+  })
+  .catch((error) => {
+    console.log("Error connecting to MongoDB:", error);
   });
