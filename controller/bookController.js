@@ -2,26 +2,47 @@ const { Book } = require("../models/bookDetails");
 
 const addBookDetails = async (req, res) => {
   try {
-    const { name, author, image, price } = req.body;
-    if (name === undefined || name === null || name === "") {
+    const { name, author, image, price, description, tags, genre } = req.body;
+    if (!name) {
       return res.status(400).json({
         success: false,
         statusCode: 400,
         msg: "Please enter title",
       });
-    } else if (author === undefined || author === null || author === "") {
+    } else if (!author) {
       return res.status(400).json({
         success: false,
         statusCode: 400,
         msg: "Please enter Author Name",
       });
-    } else if (image === undefined || image === null || image === "") {
+    } else if (!image) {
       return res.status(400).json({
         success: false,
         statusCode: 400,
         msg: "Please enter correct image URL",
       });
-    } else if (price === undefined || price === null || price === "") {
+    } else if (!price) {
+      return res.status(400).json({
+        success: false,
+        statusCode: 400,
+        msg: "Please enter price",
+      });
+    }
+    else if (!description) {
+      return res.status(400).json({
+        success: false,
+        statusCode: 400,
+        msg: "Please enter price",
+      });
+    }
+    else if (!tags) {
+      return res.status(400).json({
+        success: false,
+        statusCode: 400,
+        msg: "Please enter price",
+      });
+    }
+    else if (!genre) {
       return res.status(400).json({
         success: false,
         statusCode: 400,
@@ -33,11 +54,35 @@ const addBookDetails = async (req, res) => {
       author: author,
       image: image,
       price: price,
+      description: description,
+      tags: tags,
+      genre: genre
     });
-    res.status(200).json({ success: true, statusCode: 200, data: temp });
+    res.status(200).json({ success: true, statusCode: 200, data: newBook });
   } catch (error) {
-    res.status(400).json({ success: false, statusCode: 400, msg: error });
+    console.error("Error while adding book details:", error);
+    res.status(400).json({ success: false, statusCode: 400, msg: "An error occurred while adding the book details." });
   }
+  
 };
 
-module.exports = {addBookDetails};
+const getAllBooks = async (req, res) => {
+  try {
+    const allBooks = await Book.find();
+    res.status(200).json({ success: true, statusCode: 200, data: allBooks });
+  } catch (error) {
+    console.error("Error while fetching all books:", error);
+    res.status(500).json({ success: false, statusCode: 500, msg: "An error occurred while fetching all books." });
+  }
+};
+const getBooksByGenre = async (req, res) => {
+  try {
+    const genre = req.params.genre;
+    const booksByGenre = await Book.find({ genre: genre });
+    res.status(200).json({ success: true, statusCode: 200, data: booksByGenre });
+  } catch (error) {
+    console.error("Error while fetching books by genre:", error);
+    res.status(500).json({ success: false, statusCode: 500, msg: "An error occurred while fetching books by genre." });
+  }
+};
+module.exports = { addBookDetails, getAllBooks, getBooksByGenre};

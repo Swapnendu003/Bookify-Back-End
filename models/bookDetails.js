@@ -15,10 +15,22 @@ const bookSchema = new mongoose.Schema({
     price:{
         type: Number,
         required: true
+    },
+    description:{
+        type: String,
+        required: true
+    },
+    tags:{
+        type: [String],
+        required: true
+    },
+    genre:{
+        type: String,
+        required: true
     }
 }
 );
 
-const Book = mongoose.model('Book', bookSchema);
-
-module.exports= Book;
+module.exports = {
+    Book: mongoose.model("Book", bookSchema, "books"),
+  };

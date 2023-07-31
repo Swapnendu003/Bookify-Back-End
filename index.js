@@ -46,7 +46,7 @@ app.use("/books", bookRouter);
 
 app.all("/", (req, res) => {
   console.log("Just got a request!");
-  res.send("Yo yo");
+  res.send("Sagnik and Swapnendu Recieved");
 });
 
 const mongooseUri = process.env.MONGO_URI; // Set this environment variable in Vercel
