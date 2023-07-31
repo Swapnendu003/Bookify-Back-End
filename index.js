@@ -8,6 +8,13 @@ app.use(
     origin: "*",
   })
 );
+const bookRouter = require ("./routes/bookRoutes")
+app.use('/books', bookRouter)
+
+app.all("/", (req, res) => {
+  console.log("Just got a request!");
+  res.send("Yo yo");
+});
 
 mongoose
   .connect(
