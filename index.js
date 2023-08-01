@@ -1,4 +1,4 @@
-const express = require("express");
+/*const express = require("express");
 const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -27,9 +27,9 @@ mongoose
   })
   .catch((error)=>{
     console.log("error");
-  });
+  });*/
 
-/*const express = require("express");
+const express = require("express");
 const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -63,4 +63,4 @@ mongoose
   })
   .catch((error) => {
     console.log("Error connecting to MongoDB:", error);
-  });*/
+  });
