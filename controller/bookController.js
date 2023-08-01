@@ -85,4 +85,31 @@ const getBooksByGenre = async (req, res) => {
     res.status(500).json({ success: false, statusCode: 500, msg: "An error occurred while fetching books by genre." });
   }
 };
-module.exports = { addBookDetails, getAllBooks, getBooksByGenre};
+
+const getBook = async (req, res) => {
+  const book_id = req.query.book_id;
+  if (!book_id) {
+    return res.status(400).json({
+      success: false,
+      statusCode: 400,
+      msg: "Please enter correct book id",
+    });
+  }
+
+  const book = await Book.findOne({ _id: book_id });
+  if (!book) { // Corrected the condition to check for the existence of 'book'
+    return res.status(400).json({
+      success: false,
+      statusCode: 400,
+      msg: "Book does not exist. Please enter correct book id",
+    });
+  }
+
+  const temp = { ...book._doc };
+  delete temp.__v;
+  console.log(temp);
+
+  res.status(200).json({ success: true, statusCode: 200, data: temp });
+};
+
+module.exports = { addBookDetails, getAllBooks, getBooksByGenre, getBook};
