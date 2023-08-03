@@ -32,21 +32,21 @@ const addBookDetails = async (req, res) => {
       return res.status(400).json({
         success: false,
         statusCode: 400,
-        msg: "Please enter price",
+        msg: "Please enter Description",
       });
     }
     else if (!tags) {
       return res.status(400).json({
         success: false,
         statusCode: 400,
-        msg: "Please enter price",
+        msg: "Please enter Tags",
       });
     }
     else if (!genre) {
       return res.status(400).json({
         success: false,
         statusCode: 400,
-        msg: "Please enter price",
+        msg: "Please enter genre",
       });
     }
     const newBook = await Book.create({
