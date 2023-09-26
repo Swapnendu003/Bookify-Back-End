@@ -5,13 +5,13 @@ const ErrorResponse = require("../utils/errorHandler");
 const addBookDetails = async (req, res, next) => {
   try {
     const { name, author, image, price, description, tags, genre } = req.body;
-    if (!name) {
-      /*return res.status(400).json({
+    if (name === "" || name === undefined || name === null) {
+      console.log("Please enter title");
+      return res.status(400).json({
         success: false,
         statusCode: 400,
         msg: "Please enter title",
-      });*/
-      return next(new ErrorResponse("Please enter title", 400));
+      });
     } else if (!author) {
       return res.status(400).json({
         success: false,

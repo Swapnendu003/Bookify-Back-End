@@ -1,7 +1,8 @@
-/*const express = require("express");
+const express = require("express");
 const app = express();
 const cors = require("cors");
-const mongoose = require("mongoose");
+//const mongoose = require("mongoose");
+const connectDatabase = require("./config/database");
 app.use(express.json());
 app.use(
   cors({
@@ -15,21 +16,12 @@ app.all("/", (req, res) => {
   console.log("Just got a request!");
   res.send("Yo yo");
 });
+connectDatabase();
+app.listen(process.env.PORT || 3000, () => {
+  console.log("Your Server is running");
+});
 
-mongoose
-  .connect(
-    "mongodb+srv://swapsb003:Swapno2003@cluster0.8jg2plo.mongodb.net/?retryWrites=true&w=majority"
-  )
-  .then(() => {
-    app.listen(process.env.port || 3000, () => {
-      console.log("Your Server is running");
-    });
-  })
-  .catch((error)=>{
-    console.log("error");
-  });*/
-
-const express = require("express");
+/*const express = require("express");
 const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -63,4 +55,4 @@ mongoose
   })
   .catch((error) => {
     console.log("Error connecting to MongoDB:", error);
-  });
+  });*/
