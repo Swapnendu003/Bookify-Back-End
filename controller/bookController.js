@@ -1,56 +1,12 @@
 const { Book } = require("../models/bookDetails");
-const ErrorResponse = require("../utils/errorHandler");
+
 
 
 const addBookDetails = async (req, res, next) => {
   try {
     const { name, author, image, price, description, tags, genre } = req.body;
-    if (name === "" || name === undefined || name === null) {
-      console.log("Please enter title");
-      return res.status(400).json({
-        success: false,
-        statusCode: 400,
-        msg: "Please enter title",
-      });
-    } else if (!author) {
-      return res.status(400).json({
-        success: false,
-        statusCode: 400,
-        msg: "Please enter Author Name",
-      });
-    } else if (!image) {
-      return res.status(400).json({
-        success: false,
-        statusCode: 400,
-        msg: "Please enter correct image URL",
-      });
-    } else if (!price) {
-      return res.status(400).json({
-        success: false,
-        statusCode: 400,
-        msg: "Please enter price",
-      });
-    }
-    else if (!description) {
-      return res.status(400).json({
-        success: false,
-        statusCode: 400,
-        msg: "Please enter Description",
-      });
-    }
-    else if (!tags) {
-      return res.status(400).json({
-        success: false,
-        statusCode: 400,
-        msg: "Please enter Tags",
-      });
-    }
-    else if (!genre) {
-      return res.status(400).json({
-        success: false,
-        statusCode: 400,
-        msg: "Please enter genre",
-      });
+    if (!name || !author || !image || !price || !description || !tags || !genre) {
+      throw new ErrorResponse('Please provide all required fields.', 400);
     }
     const newBook = await Book.create({
       name: name,
