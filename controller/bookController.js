@@ -1,14 +1,17 @@
 const { Book } = require("../models/bookDetails");
+const ErrorResponse = require("../utils/errorResponse");
 
-const addBookDetails = async (req, res) => {
+
+const addBookDetails = async (req, res, next) => {
   try {
     const { name, author, image, price, description, tags, genre } = req.body;
     if (!name) {
-      return res.status(400).json({
+      /*return res.status(400).json({
         success: false,
         statusCode: 400,
         msg: "Please enter title",
-      });
+      });*/
+      return next(new ErrorResponse("Please enter title", 400));
     } else if (!author) {
       return res.status(400).json({
         success: false,
@@ -65,7 +68,6 @@ const addBookDetails = async (req, res) => {
   }
   
 };
-
 const getAllBooks = async (req, res) => {
   try {
     const allBooks = await Book.find();

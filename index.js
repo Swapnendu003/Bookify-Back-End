@@ -49,7 +49,7 @@ app.all("/", (req, res) => {
   res.send("Sagnik and Swapnendu Recieved");
 });
 
-const mongooseUri = process.env.MONGO_URI; // Set this environment variable in Vercel
+const mongooseUri = process.env.MONGO_URI; 
 
 mongoose
   .connect(mongooseUri, {
