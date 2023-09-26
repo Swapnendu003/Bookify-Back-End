@@ -1,5 +1,5 @@
 const { Book } = require("../models/bookDetails");
-const ErrorResponse = require("../utils/errorResponse");
+const ErrorResponse = require("../utils/errorHandler");
 
 
 const addBookDetails = async (req, res, next) => {
